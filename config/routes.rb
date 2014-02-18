@@ -1,3 +1,11 @@
 Spree::Core::Engine.routes.draw do
-  # Add your extension routes here
+  resources :experiments do
+    resources :variations, :path => :variation
+  end
+
+  resources :variations, :only => [] do
+    collection do
+      post :increment
+    end
+  end
 end
