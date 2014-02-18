@@ -6,7 +6,7 @@ module AbTesting
       end
     end
     def fetch_experiments
-      @experiments_with_variation = Sree::Experiment.with_variations.where(:relative_path => request.path)
+      @experiments_with_variation = Spree::Experiment.with_variations.where(:relative_path => request.path)
     end
 
     def restricted_to_experiment?
