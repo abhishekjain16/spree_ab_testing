@@ -1,0 +1,69 @@
+<%= form_for [@experiment, @variation], :html => {:class => "variation" } do |f| %>
+  <ul style="border-top: none;">
+    <li class="input-data">
+      <%= f.label :name, "Variation Name:" %>
+      <%= f.text_field :name, :class=>"textbox", :size => 70 %>
+      <span id="name", class="inline-error"></span>
+    </li>
+    <li class="input-data">
+      <%= f.label :render_percentage, "Give Percentage(frequency with which it should be displayed(0-100)):" %>
+      <%= f.text_field :render_percentage, :class=>"textbox", :size => 10 %>
+      <span id="name", class="inline-error"></span>
+    </li>
+      <%= f.text_field :data, :class => "hidden" %>
+    <br class="clear"/>
+
+    <li class="button">
+      <%= f.submit "Submit" , :class=> 'submit savebut'%>
+    </li>    
+  </ul>
+
+  <div class="original"></div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    var link = "<%= @experiment.relative_path %>?no_show='yes'"
+    $("form.variation").submit(function(e) {
+      $("div.original div").removeClass("ui-draggable");
+      $("#variation_data").val($("div.original").html())
+    });
+    $('div.original').load(link);
+    setTimeout(function() {
+      $('div.original div').draggable({containment: "div.original"});
+    }, 2000);
+    
+    $('div.original').mouseover(function(e){
+      $target = $(e.target);
+      if ( $target.is( "div" ) ) {
+        $target.addClass('hover');
+      }
+      else {
+        $nextDiv = $target.parents('div').first();
+        $nextDiv.addClass('hover')
+      }
+      $('div.hover').mouseout(function(e){
+        $(this).removeClass('hover');
+      });
+
+    });
+    $('body').on('click', 'div.original a', function(e){
+      e.preventDefault();
+    });
+    $('body').on('click', 'div.hover', function(){
+      $current_div = $(this);
+      $(this).addClass('selected')
+      html_edit_view = new ab_test.ModalPopUp($("<div></div>").attr('id', 'html_edit_popup').html('<%= j(render :partial => "edit_form")%>'));
+      html_edit_view.show();
+      $('textarea').val($(this).html())
+      $("form.edit_popup").submit(function(e){
+        e.preventDefault();
+        data_html = $('textarea').val();  
+        $('div.selected').html(data_html)
+        $('div.selected').removeClass('selected');
+        $('div#html_edit_popup').dialog("close");
+      });
+    })
+
+  })
+</script>

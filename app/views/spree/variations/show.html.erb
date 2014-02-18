@@ -1,0 +1,7 @@
+<h1>Variation details....</h1>
+
+<p><%= link_to "Edit", [:edit, @experiment, @variation] %> | <%= link_to "All Variations", @experiment %></p>
+
+Name: <%= @variation.name %>
+
+Data: <%= @variation.data.html_safe %>

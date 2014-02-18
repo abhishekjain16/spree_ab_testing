@@ -1,0 +1,19 @@
+<%= link_to "New Experiment", new_experiment_path %>
+
+<h2>Experiments</h2>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Relative Path</th>
+    <th>Selector</th>
+    <th>Actions</th>
+  </tr>
+    <% @experiments.each do |experiment| %>
+      <tr>
+        <td><%= link_to experiment.name, [experiment] %></td>
+        <td><%= experiment.relative_path %></td>
+        <td><%= experiment.selector %></td>
+        <td><%= link_to "Edit", edit_experiment_path(experiment) %></td>
+      </tr>
+    <% end %>
+</table>

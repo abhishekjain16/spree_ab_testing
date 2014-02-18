@@ -1,0 +1,50 @@
+<%= form_for @experiment do |f| %>
+  <ul style="border-top: none;">
+    <li class="input-data">
+      <%= f.label :name, "Experiment Name:" %>
+      <%= f.text_field :name, :class=>"textbox" %>
+      <span id="name", class="inline-error"></span>
+    </li>
+    <li class="input-data">
+      <%= f.label :relative_path, "Full Path" %>
+      <%= f.text_field :relative_path, :class=>"textbox" %>
+    </li>
+
+    <!-- <li class="input-data">
+      <%#= f.label :selector, "Enter Selector for Test" %>
+      <%#= f.text_field :selector, :class=>"textbox" %>
+    </li>
+ -->
+    <li class="input-data">
+      <%= f.label "Success method" %>
+      <%= f.select :success_method, SUCCESS_METHODS %>
+    </li>
+
+    <li class="input-data">
+      <%= f.label "Success Selector" %><br/>
+      <%= f.text_area :success_selector, rows: 10, cols: 30 %>
+    </li>
+
+    <br class="clear"/>
+
+    <li class="button">
+      <%= f.submit "Submit" , :class=> 'submit savebut'%>
+    </li>    
+  </ul>
+<% end %>
+
+<script type="text/javascript">
+  $('select#experiment_success_method').on('change', function(){
+    $label = $('label[for="experiment_Success Selector"]');
+    val = $(this).val();
+    if(val == "Message Based") {
+      $label.html('Enter message');
+    }
+    else if(val == "Selector Click"){
+      $label.html('Success Selector');
+    }
+    else {
+      $label.html('Enter Your custom JS'); 
+    }
+  })
+</script>

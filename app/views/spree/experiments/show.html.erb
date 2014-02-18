@@ -1,0 +1,16 @@
+<h2> Experiment Details </h2>
+
+Experiment name: <%= @experiment.name %><br/>
+Experiment Path: <%= @experiment.relative_path %><br/>
+Experiment Path: <%= @experiment.selector %><br/>
+
+<hr/>
+<div>
+  <%= link_to "Add New Variation", new_experiment_variation_path(@experiment) %>
+  <%= link_to "All Experiments", experiments_path %>
+</div>
+
+<h2>Variations</h2>
+<% @variations.each do |variation| %>
+  Name: <%= link_to variation.name, [@experiment, variation] %><br/>
+<% end %>
