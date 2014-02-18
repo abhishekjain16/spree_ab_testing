@@ -1,5 +1,5 @@
 module Spree
-  class ExperimentsController < StoreController
+  class ExperimentsController < ApplicationController
     before_filter :load_experiment, :only => [:show, :edit, :update]
     before_filter :load_variations, :only => :show
 
