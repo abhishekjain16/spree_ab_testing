@@ -30,7 +30,7 @@ module Spree
     end
 
     def increment
-      @variation = Variation.where(:id => params[:v]).first
+      @variation = Spree::Variation.where(:id => params[:v]).first
       @variation.increment!(:success_count)
       render :text => "Success!"
     end
@@ -51,11 +51,11 @@ module Spree
     # end
 
     def load_experiment
-      redirect_to experiments_path unless @experiment = Experiment.where(:id => params[:experiment_id]).first
+      redirect_to experiments_path unless @experiment = Spree::Experiment.where(:id => params[:experiment_id]).first
     end
 
     def load_variation
-      redirect_to experiment_path(@experiment) unless @variation = Variation.where(:id => params[:id]).first
+      redirect_to experiment_path(@experiment) unless @variation = Spree::Variation.where(:id => params[:id]).first
     end
 
     def variations_params

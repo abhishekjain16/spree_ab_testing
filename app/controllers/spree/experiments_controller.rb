@@ -4,11 +4,11 @@ module Spree
     before_filter :load_variations, :only => :show
 
     def index
-      @experiments = Experiment.all
+      @experiments = Spree::Experiment.all
     end
 
     def new
-      @experiment = Experiment.new
+      @experiment = Spree::Experiment.new
     end
 
     def edit
@@ -23,7 +23,7 @@ module Spree
     end
 
     def create
-      @experiment = Experiment.new(experiment_params)
+      @experiment = Spree::Experiment.new(experiment_params)
       if @experiment.save
         redirect_to @experiment
       else
@@ -41,7 +41,7 @@ module Spree
     end
 
     def load_experiment
-      redirect_to experiments_path unless @experiment = Experiment.where(:id => params[:id]).first
+      redirect_to experiments_path unless @experiment = Spree::Experiment.where(:id => params[:id]).first
     end
 
     def experiment_params
